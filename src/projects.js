@@ -1,3 +1,15 @@
+const PRIORITIES = {
+    low: {
+        color: "#4caf50",
+    },
+    medium: {
+        color: "#ff9800",
+    },
+    high: {
+        color: "#f44336",
+    }
+}
+
 class Project {
     constructor(name) {
         this.name = name;
@@ -12,6 +24,10 @@ class Project {
     removeItem(id) {
         const index = this.items.findIndex(i => i.id === id);
         this.items.splice(index, 1);
+    }
+
+    updateName(name) {
+        this.name = name;
     }
 }
 
@@ -30,40 +46,34 @@ class Item {
         this.checked = true;
     }
 
-    getPriority() {
-        return this.priority.getPriority();
+    uncheck() {
+        this.checked = false;
     }
-}
 
-class Priority {
-    getPriority() { };
-}
-
-class LowPriority extends Priority {
-    getPriority() {
-        return "low";
+    updateTitle(title) {
+        this.title = title;
     }
-}
 
-class MediumPriority extends Priority {
-    getPriority() {
-        return "medium";
+    updateDescription(description) {
+        this.description = description;
     }
-}
 
-class HighPriority extends Priority {
-    getPriority() {
-        return "high";
+    updateDueDate(dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    updatePriority(priority) {
+        this.priority = priority;
     }
 }
 
 const project = new Project("test");
-const item = new Item("Task", "My task", "28.10.1999", new LowPriority());
+const item = new Item("Task", "My task", "28.10.1999", "low");
 
 project.addItem(item);
 console.log(project);
 console.log(item);
-console.log(project.items[0].getPriority());
+console.log(project.items[0].priority);
 
 export {
     project,
