@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Project } from "./projects.js";
+import { Project, projectList } from "./projects.js";
 import { Item, PRIORITIES } from "./items.js";
 
 const body = document.body;
@@ -82,11 +82,14 @@ sidebarButton.addEventListener("click", () => {
 });
 
 if (!("projects" in localStorage)) {
+    const newProject = new Project("New project");
+
     const div = document.createElement("div");
     div.id = "new-project";
+    div.setAttribute("data-id", newProject.id);
 
     const title = document.createElement("div");
-    title.textContent = "New project";
+    title.textContent = newProject.name;
     title.style.textOverflow = "ellipsis";
     title.classList.add("project-name");
 
@@ -98,6 +101,30 @@ if (!("projects" in localStorage)) {
 
     div.appendChild(title);
     div.appendChild(editing);
-
     projects.appendChild(div);
+
+    const content = document.querySelector("#project");
+    const projectDiv = document.createElement("div");
+
+    projectDiv.setAttribute("data-id", newProject.id);
+
+    const header = document.createElement("h1");
+    header.id = "project-name";
+    header.setAttribute("data-id", newProject.id);
+    header.textContent = newProject.name;
+    header.setAttribute("contenteditable", "true");
+    header.addEventListener("input", projectNameChange);
+    projectDiv.appendChild(header);
+
+    content.appendChild(projectDiv);
+}
+
+function projectNameChange(event) {
+    const projectId = event.target.dataset.id;
+    const project = projectList.get(projectId);
+    project.updateName(event.target.textContent);
+
+    const sidebarTab = document.querySelector(`#projects [data-id="${projectId}"] .project-name`);
+    sidebarTab.textContent = project.name;
+
 }
