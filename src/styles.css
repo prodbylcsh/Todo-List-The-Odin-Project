@@ -19,6 +19,12 @@ button {
     margin: 0;
 }
 
+hr {
+    height: 2px;
+    border: none;
+    background-color: rgb(237, 237, 237);
+}
+
 body {
     display: flex;
     margin: 0;

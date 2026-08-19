@@ -116,6 +116,9 @@ if (!("projects" in localStorage)) {
     header.addEventListener("input", projectNameChange);
     projectDiv.appendChild(header);
 
+    const divider = document.createElement("hr");
+    projectDiv.appendChild(divider);
+
     content.appendChild(projectDiv);
 }
 
@@ -126,5 +129,4 @@ function projectNameChange(event) {
 
     const sidebarTab = document.querySelector(`#projects [data-id="${projectId}"] .project-name`);
     sidebarTab.textContent = project.name;
-
 }
