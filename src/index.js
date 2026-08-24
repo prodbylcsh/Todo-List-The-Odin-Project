@@ -65,21 +65,6 @@ sidebarButton.addEventListener("click", () => {
 
     if (isCollapsed) {
         sidebar.style.width = "";
-        const projects = document.querySelectorAll("nav .project-name");
-        const projectsContainer = document.querySelector("#new-project");
-        projectsContainer.style.justifyContent = "center";
-
-        for (let i = 0; i < projects.length; i++) {
-            projects[i].style.display = "none";
-        }
-    } else {
-        const projects = document.querySelectorAll("nav .project-name");
-        const projectsContainer = document.querySelector("#new-project");
-        projectsContainer.style.justifyContent = "space-between";
-
-        for (let i = 0; i < projects.length; i++) {
-            projects[i].style.display = "block";
-        }
     }
 });
 
@@ -144,8 +129,8 @@ function createItemForm() {
     dueDate.id = "new-item-due-date";
     dueDate.type = "date";
 
-    const newItemPriority = document.createElement("select");
-    newItemPriority.id = "new-item-priority";
+    const priority = document.createElement("select");
+    priority.id = "new-item-priority";
 
     for (const key of Object.keys(PRIORITIES)) {
         const option = document.createElement("option");

@@ -67,6 +67,14 @@ aside.is-collapsed h1 {
     display: none;
 }
 
+aside.is-collapsed .project-name {
+    display: none;
+}
+
+aside.is-collapsed .project-tab {
+    justify-content: center;
+}
+
 #navigation-header {
     display: flex;
     align-items: center;
@@ -111,7 +119,7 @@ main {
     gap: 2rem;
 }
 
-#new-project {
+.project-tab {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -126,6 +134,38 @@ main {
     display: grid;
     grid-template: min-content min-content min-content / min-content min-content;
     grid-auto-flow: column;
+    order: 1;
+}
+
+.project-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.project-edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.item-priority {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+#new-item-add {
+    grid-row: 3;
+    grid-column: 2;
 }
 
 #new-item-name {
