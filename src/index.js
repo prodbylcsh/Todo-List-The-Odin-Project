@@ -217,3 +217,35 @@ function projectNameChange(event) {
     const sidebarTab = document.querySelector(`#projects [data-id="${projectId}"] .project-name`);
     sidebarTab.textContent = project.name;
 }
+
+function createProjectTab(project) {
+
+}
+
+function createItemForm() {
+
+}
+
+function createProjectView(project) {
+
+}
+
+function createItemElement(item) {
+
+}
+
+function renderProject(project) {
+
+}
+
+function renderSidebar() {
+
+}
+
+function createProject(name) {
+
+}
+
+function init() {
+
+}
