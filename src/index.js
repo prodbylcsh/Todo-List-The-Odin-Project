@@ -150,6 +150,8 @@ function createItemForm() {
 }
 
 function handleAddItem(event) {
+    event.preventDefault();
+
     const form = event.currentTarget.closest(".new-item");
     const projectId = event.currentTarget.closest("[data-id]").dataset.id;
     const project = projectList.get(projectId);
@@ -218,9 +220,9 @@ function createItemElement(item) {
     description.classList.add("item-description");
     description.textContent = item.description;
 
-    const dueDate = document.createElement("div");
+    const dueDate = document.createElement("time");
     dueDate.classList.add("item-due-date");
-    dueDate.textContent = item.dueDate;
+    dueDate.textContent = formatDueDate(item.dueDate);
 
     const priority = document.createElement("span");
     priority.classList.add("item-priority");
@@ -269,6 +271,15 @@ function init() {
     //TODO: Rehydrate projectList from localStorage
     renderSidebar();
     renderProject(projectList.values().next().value);
+}
+
+function formatDueDate(value) {
+    if (!value) {
+        return "";
+    }
+
+    const [year, month, day] = value.split("-").map(Number);
+    return new Date(year, month - 1, day).toLocaleDateString();
 }
 
 init();
