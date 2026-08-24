@@ -136,7 +136,7 @@ main {
 
 #new-item-description {
     border: none;
-    color: gainsboro;
+    color: rgb(122, 122, 122);
 }
 
 #new-item-due-date {

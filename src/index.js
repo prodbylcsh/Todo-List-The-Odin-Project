@@ -159,8 +159,18 @@ if (!("projects" in localStorage)) {
     highPriority.value = "high";
     highPriority.textContent = "High";
     newItemPriority.appendChild(highPriority);
-
     newItem.appendChild(newItemPriority);
+
+    const createButton = document.createElement("button");
+    createButton.id = "new-item-add";
+    createButton.textContent = "Add";
+    createButton.style.gridRow = 3;
+    createButton.style.gridColumn = 2;
+    createButton.addEventListener("click", function (e) {
+
+    });
+
+    newItem.appendChild(createButton);
 
     itemsContainer.appendChild(newItem);
 
