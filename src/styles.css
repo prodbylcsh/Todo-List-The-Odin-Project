@@ -25,6 +25,12 @@ hr {
     background-color: rgb(237, 237, 237);
 }
 
+input {
+    padding: 0;
+    margin: 0;
+    line-height: 1rem;
+}
+
 body {
     display: flex;
     margin: 0;
@@ -109,6 +115,33 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#project-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-item {
+    display: grid;
+    grid-template: min-content min-content min-content / min-content min-content;
+    grid-auto-flow: column;
+}
+
+#new-item-name {
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#new-item-description {
+    border: none;
+    color: gainsboro;
+}
+
+#new-item-due-date {
+    border: none;
+    width: min-content;
 }
 
 @media (min-width: 48rem) {

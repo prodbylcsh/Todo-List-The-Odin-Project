@@ -119,6 +119,53 @@ if (!("projects" in localStorage)) {
     const divider = document.createElement("hr");
     projectDiv.appendChild(divider);
 
+    const itemsContainer = document.createElement("div");
+    itemsContainer.id = "project-items";
+
+    const newItem = document.createElement("div");
+    newItem.classList.add("new-item");
+
+    const newItemName = document.createElement("input");
+    newItemName.id = "new-item-name";
+    newItemName.setAttribute("type", "text");
+    newItemName.setAttribute("placeholder", "Grocery shopping");
+    newItem.appendChild(newItemName);
+
+    const newItemDescription = document.createElement("input");
+    newItemDescription.id = "new-item-description";
+    newItemDescription.setAttribute("type", "text");
+    newItemDescription.setAttribute("placeholder", "Buy lemon in Tesco");
+    newItem.appendChild(newItemDescription);
+
+    const newItemDueDate = document.createElement("input");
+    newItemDueDate.id = "new-item-due-date";
+    newItemDueDate.setAttribute("type", "date");
+    newItem.appendChild(newItemDueDate);
+
+    const newItemPriority = document.createElement("select");
+    newItemPriority.id = "new-item-priority";
+
+    const lowPriority = document.createElement("option");
+    lowPriority.value = "low";
+    lowPriority.textContent = "Low";
+    newItemPriority.appendChild(lowPriority);
+
+    const mediumPriority = document.createElement("option");
+    mediumPriority.value = "medium";
+    mediumPriority.textContent = "Medium";
+    newItemPriority.appendChild(mediumPriority);
+
+    const highPriority = document.createElement("option");
+    highPriority.value = "high";
+    highPriority.textContent = "High";
+    newItemPriority.appendChild(highPriority);
+
+    newItem.appendChild(newItemPriority);
+
+    itemsContainer.appendChild(newItem);
+
+    projectDiv.appendChild(itemsContainer);
+
     content.appendChild(projectDiv);
 }
 
