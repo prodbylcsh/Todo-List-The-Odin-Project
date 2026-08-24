@@ -167,7 +167,37 @@ if (!("projects" in localStorage)) {
     createButton.style.gridRow = 3;
     createButton.style.gridColumn = 2;
     createButton.addEventListener("click", function (e) {
+        const projectId = e.target.closest("[data-id]").dataset.id;
+        const project = projectList.get(projectId);
 
+        const title = e.target.parentElement.querySelector("#new-item-name").value;
+        const description = e.target.parentElement.querySelector("#new-item-description").value;
+        const dueDate = e.target.parentElement.querySelector("#new-item-due-date").value;
+        const priority = e.target.parentElement.querySelector("#new-item-priority").value;
+
+        if (!title.trim()) {
+            return;
+        }
+
+        if (!description.trim()) {
+            return;
+        }
+
+        if (!dueDate.trim()) {
+            return;
+        }
+
+        if (!priority.trim()) {
+            return;
+        }
+
+        const item = new Item(title, description, dueDate, priority);
+        project.addItem(item);
+
+        title.value = ""
+        description.value = "";
+        dueDate.value = "";
+        priority.value = "low";
     });
 
     newItem.appendChild(createButton);
