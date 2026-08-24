@@ -164,16 +164,26 @@ main {
 .item-title {
     grid-row: 1 / 2;
     grid-column: 2 / 3;
+
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 .item-description {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
+
+    font-size: 1rem;
+    font-style: italic;
+    color: rgb(70, 70, 70);
 }
 
 .item-due-date {
     grid-row: 3 / 4;
     grid-column: 2 / 3;
+
+    font-size: 0.75rem;
+    color: grey;
 }
 
 .item-priority {
@@ -192,6 +202,9 @@ main {
     grid-row: 1 / -1;
     grid-column: 4 / 5;
     align-self: center;
+
+    border: none;
+    background-color: transparent;
 }
 
 #new-item-add {
