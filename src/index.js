@@ -1,3 +1,4 @@
+import { parseISO, isToday, isTomorrow } from "date-fns";
 import "./styles.css";
 import { Project, projectList } from "./projects.js";
 import { Item, PRIORITIES } from "./items.js";
@@ -176,10 +177,7 @@ function handleAddItem(event) {
 
     form.parentElement.appendChild(createItemElement(item));
 
-    nameInput.value = "";
-    descriptionInput.value = "";
-    dueDateInput.value = "";
-    priorityInput.value = "low";
+    form.reset();
     nameInput.focus();
 }
 
@@ -222,6 +220,7 @@ function createItemElement(item) {
 
     const dueDate = document.createElement("time");
     dueDate.classList.add("item-due-date");
+    dueDate.dateTime = item.dueDate;
     dueDate.textContent = formatDueDate(item.dueDate);
 
     const priority = document.createElement("span");
@@ -270,7 +269,13 @@ function init() {
 
     //TODO: Rehydrate projectList from localStorage
     renderSidebar();
-    renderProject(projectList.values().next().value);
+    const first = projectList.values().next().value;
+
+    if (first) {
+        renderProject(first);
+    } else {
+        createProject("New project");
+    }
 }
 
 function formatDueDate(value) {
@@ -278,8 +283,17 @@ function formatDueDate(value) {
         return "";
     }
 
-    const [year, month, day] = value.split("-").map(Number);
-    return new Date(year, month - 1, day).toLocaleDateString();
+    const date = parseISO(value);
+
+    if (isToday(date)) {
+        return "Today";
+    }
+
+    if (isTomorrow(date)) {
+        return "Tomorrow";
+    }
+
+    return date.toLocaleDateString(undefined, { dateStyle: "medium" });
 }
 
 init();
