@@ -151,19 +151,13 @@ main {
 
 .item {
     display: grid;
-    grid-template: min-content min-content min-content / min-content max-content min-content min-content;
-    gap: 0.5rem;
-}
-
-.item-check {
-    grid-row: 1 / -1;
-    grid-column: 1 / 2;
-    align-self: center;
+    grid-template: min-content min-content min-content / max-content min-content min-content;
+    column-gap: 1rem;
 }
 
 .item-title {
     grid-row: 1 / 2;
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
 
     font-size: 1.3rem;
     font-weight: bold;
@@ -171,16 +165,15 @@ main {
 
 .item-description {
     grid-row: 2 / 3;
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
 
     font-size: 1rem;
-    font-style: italic;
     color: rgb(70, 70, 70);
 }
 
 .item-due-date {
     grid-row: 3 / 4;
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
 
     font-size: 0.75rem;
     color: grey;
@@ -194,13 +187,13 @@ main {
     flex-shrink: 0;
 
     grid-row: 1 / 2;
-    grid-column: 3 / 4;
+    grid-column: 2 / 3;
     align-self: center;
 }
 
 .item-remove {
     grid-row: 1 / -1;
-    grid-column: 4 / 5;
+    grid-column: 3 / 4;
     align-self: center;
 
     border: none;

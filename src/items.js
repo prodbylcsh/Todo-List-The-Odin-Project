@@ -19,16 +19,6 @@ class Item {
         this.id = crypto.randomUUID();
     }
 
-    checked = false;
-
-    check() {
-        this.checked = true;
-    }
-
-    uncheck() {
-        this.checked = false;
-    }
-
     updateTitle(title) {
         this.title = title;
     }

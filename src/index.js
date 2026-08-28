@@ -78,9 +78,7 @@ content.addEventListener("click", (event) => {
     const project = projectList.get(itemElement.closest("[data-id]:not(.item)").dataset.id);
     const item = project.items.find((i) => i.id === itemElement.dataset.id);
 
-    if (event.target.matches(".item-check")) {
-        event.target.checked ? item.check() : item.uncheck();
-    } else if (event.target.matches(".item-remove")) {
+    if (event.target.matches(".item-remove")) {
         project.removeItem(item.id);
         itemElement.remove();
     }
@@ -205,11 +203,6 @@ function createItemElement(item) {
     element.classList.add("item");
     element.dataset.id = item.id;
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.classList.add("item-check");
-    checkbox.checked = item.checked;
-
     const title = document.createElement("div");
     title.classList.add("item-title");
     title.textContent = item.title;
@@ -231,7 +224,7 @@ function createItemElement(item) {
     remove.classList.add("item-remove");
     remove.textContent = "×";
 
-    element.append(checkbox, title, description, dueDate, priority, remove);
+    element.append(title, description, dueDate, priority, remove);
 
     return element;
 }
@@ -293,7 +286,11 @@ function formatDueDate(value) {
         return "Tomorrow";
     }
 
-    return date.toLocaleDateString(undefined, { dateStyle: "medium" });
+    return date.toLocaleDateString(undefined, {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+    });
 }
 
 init();
