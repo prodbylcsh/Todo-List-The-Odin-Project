@@ -2,7 +2,6 @@ class Project {
     constructor(name) {
         this.name = name;
         this.id = crypto.randomUUID();
-        projectList.set(this.id, this);
     }
 
     items = [];
@@ -22,6 +21,10 @@ class Project {
 
     moveItem(id) {
 
+    }
+
+    registerProject() {
+        projectList.set(this.id, this);
     }
 }
 

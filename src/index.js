@@ -248,6 +248,8 @@ function renderSidebar() {
 
 function createProject(name) {
     const project = new Project(name);
+    project.registerProject();
+
     renderSidebar();
     renderProject(project);
 
@@ -258,6 +260,8 @@ function init() {
     if (!("projects" in localStorage)) {
         createProject("New project");
         return;
+    } else {
+
     }
 
     //TODO: Rehydrate projectList from localStorage
