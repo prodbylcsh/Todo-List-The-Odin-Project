@@ -1,7 +1,9 @@
+import { Item } from "./items.js";
+
 class Project {
-    constructor(name) {
+    constructor(name, id = crypto.randomUUID()) {
         this.name = name;
-        this.id = crypto.randomUUID();
+        this.id = id;
     }
 
     items = [];
@@ -23,14 +25,27 @@ class Project {
 
     }
 
-    registerProject() {
-        projectList.set(this.id, this);
+    static fromJSON(data) {
+        const project = new Project(data.name, data.id);
+        const rawItems = Array.isArray(data.items) ? data.items : [];
+        project.items = rawItems.map((raw) => Item.fromJSON(raw));
+        return project;
     }
 }
 
 const projectList = new Map();
 
+function registerProject(project) {
+    projectList.set(project.id, project);
+}
+
+function clearProjects() {
+    projectList.clear();
+}
+
 export {
     Project,
     projectList,
+    registerProject,
+    clearProjects,
 }

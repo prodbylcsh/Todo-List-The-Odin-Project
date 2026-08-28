@@ -11,12 +11,12 @@ const PRIORITIES = {
 }
 
 class Item {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, id = crypto.randomUUID()) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.id = crypto.randomUUID();
+        this.id = id;
     }
 
     updateTitle(title) {
@@ -33,6 +33,11 @@ class Item {
 
     updatePriority(priority) {
         this.priority = priority;
+    }
+
+    static fromJSON(data) {
+        const priority = data.priority in PRIORITIES ? data.priority : "medium";
+        return new Item(data.title, data.description, data.dueDate, priority, data.id);
     }
 }
 

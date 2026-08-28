@@ -1,7 +1,8 @@
 import { parseISO, isToday, isTomorrow } from "date-fns";
 import "./styles.css";
-import { Project, projectList } from "./projects.js";
+import { Project, projectList, registerProject } from "./projects.js";
 import { Item, PRIORITIES } from "./items.js";
+import { saveProjects, loadProjects } from "./storage.js";
 
 const body = document.body;
 const sidebar = document.querySelector("aside");
@@ -80,6 +81,7 @@ content.addEventListener("click", (event) => {
 
     if (event.target.matches(".item-remove")) {
         project.removeItem(item.id);
+        saveProjects();
         itemElement.remove();
     }
 });
@@ -91,6 +93,8 @@ function projectNameChange(event) {
 
     const sidebarTab = document.querySelector(`#projects [data-id="${projectId}"] .project-name`);
     sidebarTab.textContent = project.name;
+
+    saveProjectsSoon();
 }
 
 function createProjectTab(project) {
@@ -172,6 +176,7 @@ function handleAddItem(event) {
         priorityInput.value,
     );
     project.addItem(item);
+    saveProjects();
 
     form.parentElement.appendChild(createItemElement(item));
 
@@ -248,7 +253,8 @@ function renderSidebar() {
 
 function createProject(name) {
     const project = new Project(name);
-    project.registerProject();
+    registerProject(project);
+    saveProjects();
 
     renderSidebar();
     renderProject(project);
@@ -257,14 +263,8 @@ function createProject(name) {
 }
 
 function init() {
-    if (!("projects" in localStorage)) {
-        createProject("New project");
-        return;
-    } else {
+    loadProjects();
 
-    }
-
-    //TODO: Rehydrate projectList from localStorage
     renderSidebar();
     const first = projectList.values().next().value;
 
@@ -297,4 +297,13 @@ function formatDueDate(value) {
     });
 }
 
+function debounce(fn, delay) {
+    let timeoutId;
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn(...args), delay);
+    };
+}
+
+const saveProjectsSoon = debounce(saveProjects, 1000);
 init();
