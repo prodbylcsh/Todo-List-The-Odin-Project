@@ -3,10 +3,23 @@
 }
 
 :root {
-    --sidebar-min-width: clamp(11rem, 16vw, 16rem);
-    --sidebar-max-width: clamp(18rem, 38vw, 30rem);
-    --sidebar-default-width: 16rem;
-    --sidebar-rail-width: 4.5rem;
+    --sidebar-width: 17rem;
+    --surface: #fafafa;
+    --surface-hover: #f0f0f2;
+    --surface-active: #e7e7ea;
+    --border: #e4e4e7;
+    --text: #18181b;
+    --text-muted: #71717a;
+    --accent: #2563eb;
+}
+
+body {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    height: 100dvh;
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 h1 {
@@ -20,9 +33,9 @@ button {
 }
 
 hr {
-    height: 2px;
+    height: 1px;
     border: none;
-    background-color: rgb(237, 237, 237);
+    background-color: var(--border);
 }
 
 input {
@@ -31,135 +44,225 @@ input {
     line-height: 1rem;
 }
 
-body {
+aside {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
     display: flex;
-    margin: 0;
-    width: 100%;
-    height: 100dvh;
-    border-top: 1px solid rgb(200, 200, 200);
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.875rem 0.75rem;
+    background-color: var(--surface);
+    border-right: 1px solid var(--border);
+    user-select: none;
+    overflow-y: auto;
 }
 
 nav {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    min-height: 0;
 }
 
-aside {
-    max-width: 45vw;
-    flex-shrink: 0;
-    background-color: #f4f4f5;
-    position: relative;
+#brand {
     display: flex;
-    flex-direction: column;
-    user-select: none;
-    overflow: hidden;
-    padding: 1.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
 }
 
-#add-project {
-    padding: 10px;
-    border: 1px solid black;
+#brand svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+    fill: var(--accent);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    padding: 0.5rem 0.625rem;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    text-align: left;
+    border: none;
+    border-radius: 0.5rem;
     background: none;
-    border-radius: 1rem;
     cursor: pointer;
 }
 
-aside.is-collapsed {
-    width: var(--sidebar-rail-width);
-    min-width: 0;
-    align-items: center;
-    padding-inline: 0.75rem;
+.nav-item:hover {
+    background-color: var(--surface-hover);
 }
 
-aside.is-collapsed h1,
-aside.is-collapsed .project-name,
-aside.is-collapsed .project-count,
-aside.is-collapsed .project-remove,
-aside.is-collapsed #add-project {
-    display: none;
+.nav-item.is-active {
+    background-color: var(--surface-active);
+    font-weight: 600;
 }
 
-
-
-
-aside.is-collapsed .project-tab {
-    justify-content: center;
-}
-
-.project-initial {
-    display: none;
-}
-
-aside.is-collapsed .project-initial {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background-color: #e4e4e7;
+.nav-item svg {
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
-}
-
-.project-remove svg {
-    width: 20px;
-    height: 20px;
     display: block;
+    fill: var(--text-muted);
 }
 
-#navigation-header {
+.nav-item.is-active svg {
+    fill: var(--accent);
+}
+
+.nav-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
+    padding: 1.25rem 0.625rem 0.375rem;
 }
 
-aside.is-collapsed #navigation-header {
-    align-self: center;
+.nav-section h2 {
+    margin: 0;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
 }
 
-#navigation-header h1 {
+#add-project {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    border: none;
+    border-radius: 0.375rem;
+    background: none;
+    cursor: pointer;
+}
+
+#add-project:hover {
+    background-color: var(--surface-hover);
+    color: var(--text);
+}
+
+#add-project svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+    fill: currentColor;
+}
+
+#projects {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    overflow-y: auto;
+}
+
+.project-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.project-tab:hover {
+    background-color: var(--surface-hover);
+}
+
+.project-tab.is-active {
+    background-color: var(--surface-active);
+    font-weight: 600;
+}
+
+.project-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    border-radius: 0.3125rem;
+    background-color: #d4d4d8;
+    color: #3f3f46;
+    font-size: 0.625rem;
+    font-weight: 700;
+}
+
+.project-name {
+    flex: 1;
     min-width: 0;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-#sidebar-button {
-    width: min-content;
+.project-count {
     display: flex;
-    cursor: pointer;
     align-items: center;
     justify-content: center;
-    height: min-content;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.375rem;
     flex-shrink: 0;
-    border: none;
-    background: none;
+    border-radius: 999px;
+    background-color: #dedee2;
+    color: var(--text-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
 }
 
-.resizer {
+.project-tab.is-active .project-count {
+    background-color: #cfcfd6;
+}
+
+.project-count:empty {
     display: none;
+}
+
+.project-remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    border: none;
+    border-radius: 0.25rem;
+    background: none;
+    cursor: pointer;
+}
+
+.project-remove:hover {
+    color: #dc2626;
+}
+
+.project-remove svg {
+    width: 13px;
+    height: 13px;
+    display: block;
+    fill: currentColor;
 }
 
 main {
     flex: 1;
     min-width: 0;
     overflow: auto;
-    padding: 1.5rem;
-}
-
-#projects {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.project-tab {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
+    padding: 2rem 2.25rem;
 }
 
 #project-items {
@@ -411,46 +514,89 @@ main {
     width: min-content;
 }
 
+#notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    align-items: start;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.note {
+    position: relative;
+    display: flex;
+    min-height: 3.5rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #fff8c4;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.note-text {
+    flex: 1;
+    min-width: 0;
+    padding-right: 1.25rem;
+    outline: none;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.note-text:empty::before {
+    content: attr(data-placeholder);
+    color: rgba(0, 0, 0, 0.35);
+}
+
+.note-remove {
+    position: absolute;
+    top: 0.375rem;
+    right: 0.375rem;
+    display: flex;
+    padding: 0.25rem;
+    border: none;
+    background: none;
+    color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.note-remove:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.note-remove svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+    fill: currentColor;
+}
+
+#add-note {
+    min-height: 3.5rem;
+    align-self: start;
+    font: inherit;
+    color: rgb(120, 120, 120);
+    border: 2px dashed rgb(200, 200, 200);
+    border-radius: 0.5rem;
+    background: none;
+    cursor: pointer;
+}
+
+#add-note:hover {
+    border-color: rgb(150, 150, 150);
+    color: rgb(60, 60, 60);
+}
+
 @media (hover: hover) {
     .project-remove {
-        visibility: hidden;
+        display: none;
     }
 
     .project-tab:hover .project-remove,
     .project-tab:focus-within .project-remove {
-        visibility: visible;
-    }
-}
-
-@media (min-width: 48rem) {
-    aside {
-        width: var(--sidebar-default-width);
-        min-width: var(--sidebar-min-width);
-        max-width: var(--sidebar-max-width);
+        display: flex;
     }
 
-    aside.is-collapsed {
-        width: var(--sidebar-rail-width);
-        max-width: var(--sidebar-rail-width);
-    }
-
-    .resizer {
-        display: block;
-        width: 3px;
-        flex-shrink: 0;
-        background-color: #e4e4e7;
-        cursor: col-resize;
-        touch-action: none;
-        transition: background-color 0.2s ease;
-    }
-
-    .resizer:hover,
-    body.is-resizing .resizer {
-        background-color: #3b82f6;
-    }
-
-    body.is-resizing {
-        cursor: col-resize;
-        user-select: none;
+    .project-tab:hover .project-count,
+    .project-tab:focus-within .project-count {
+        display: none;
     }
 }
