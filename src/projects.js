@@ -43,9 +43,14 @@ function clearProjects() {
     projectList.clear();
 }
 
+function removeProject(id) {
+    projectList.delete(id);
+}
+
 export {
     Project,
     projectList,
     registerProject,
     clearProjects,
+    removeProject,
 }
