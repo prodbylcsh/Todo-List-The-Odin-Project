@@ -27,6 +27,44 @@
     </aside>
     <div class="resizer" id="resizer"></div>
     <main id="project"></main>
+    <dialog id="item-info" class="modal">
+        <form method="dialog" class="modal-close-form">
+            <button class="modal-close" aria-label="Close">&times;</button>
+        </form>
+        <h2 id="item-info-title"></h2>
+        <dl class="modal-details">
+            <dt>Description</dt>
+            <dd id="item-info-description"></dd>
+            <dt>Priority</dt>
+            <dd id="item-info-priority"></dd>
+            <dt>Due date</dt>
+            <dd id="item-info-due-date"></dd>
+            <dt>Project</dt>
+            <dd id="item-info-project"></dd>
+        </dl>
+    </dialog>
+
+    <dialog id="item-edit" class="modal">
+        <h2>Edit item</h2>
+        <form id="item-edit-form" class="modal-form">
+            <label for="edit-item-name">Name</label>
+            <input id="edit-item-name" type="text" required>
+
+            <label for="edit-item-description">Description</label>
+            <textarea id="edit-item-description" rows="3"></textarea>
+
+            <label for="edit-item-due-date">Due date</label>
+            <input id="edit-item-due-date" type="date">
+
+            <label for="edit-item-priority">Priority</label>
+            <select id="edit-item-priority"></select>
+
+            <div class="modal-actions">
+                <button type="button" id="edit-item-cancel">Cancel</button>
+                <button type="submit" id="edit-item-save">Save changes</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 
 </html>
