@@ -137,8 +137,7 @@ function projectNameChange(event) {
     const project = projectList.get(projectId);
     project.updateName(event.target.textContent);
 
-    const sidebarTab = document.querySelector(`#projects [data-id="${projectId}"] .project-name`);
-    sidebarTab.textContent = project.name;
+    renderSidebar();
 
     saveProjectsSoon();
 }
@@ -162,7 +161,11 @@ function createProjectTab(project) {
     remove.setAttribute("aria-label", `Delete ${project.name}`);
     remove.innerHTML = TRASH_ICON;
 
-    tab.append(name, edit, remove);
+    const initial = document.createElement("div");
+    initial.classList.add("project-initial");
+    initial.textContent = (project.name ?? "").trim()[0]?.toUpperCase() ?? "?";
+
+    tab.append(initial, name, edit, remove);
     tab.classList.toggle("is-active", project.id === activeProjectId);
     return tab;
 }

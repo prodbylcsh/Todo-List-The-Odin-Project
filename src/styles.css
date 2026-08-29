@@ -72,20 +72,34 @@ aside.is-collapsed {
     padding-inline: 0.75rem;
 }
 
-aside.is-collapsed h1 {
+aside.is-collapsed h1,
+aside.is-collapsed .project-name,
+aside.is-collapsed .project-edit,
+aside.is-collapsed .project-remove,
+aside.is-collapsed #add-project {
     display: none;
 }
 
-aside.is-collapsed .project-name {
-    display: none;
-}
 
-aside.is-collapsed .project-remove {
-    display: none;
-}
+
 
 aside.is-collapsed .project-tab {
     justify-content: center;
+}
+
+.project-initial {
+    display: none;
+}
+
+aside.is-collapsed .project-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #e4e4e7;
+    flex-shrink: 0;
 }
 
 .project-remove svg,
@@ -99,8 +113,11 @@ aside.is-collapsed .project-tab {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    align-self: center;
     gap: 0.5rem;
+}
+
+aside.is-collapsed #navigation-header {
+    align-self: center;
 }
 
 #navigation-header h1 {
@@ -176,6 +193,10 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.project-tab:not(.is-active) .project-edit {
+    display: none;
 }
 
 .item {
