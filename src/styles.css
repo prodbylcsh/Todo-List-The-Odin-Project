@@ -42,6 +42,7 @@ body {
 nav {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 aside {
@@ -54,6 +55,14 @@ aside {
     user-select: none;
     overflow: hidden;
     padding: 1.5rem;
+}
+
+#add-project {
+    padding: 10px;
+    border: 1px solid black;
+    background: none;
+    border-radius: 1rem;
+    cursor: pointer;
 }
 
 aside.is-collapsed {
@@ -79,12 +88,19 @@ aside.is-collapsed .project-tab {
     justify-content: center;
 }
 
+.project-remove svg,
+.project-edit svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
 #navigation-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    align-self: center;
     gap: 0.5rem;
-    margin-bottom: 2rem;
 }
 
 #navigation-header h1 {
@@ -216,6 +232,15 @@ main {
 #new-item-add {
     grid-row: 3;
     grid-column: 2;
+    background: none;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#new-item-priority {
+    background: none;
 }
 
 #new-item-name {
