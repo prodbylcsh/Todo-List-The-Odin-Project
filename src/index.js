@@ -51,13 +51,14 @@ function makeEditable(element, { multiline }) {
             return;
         }
 
-        // Without plaintext-only the browser answers Enter with a <div> or <br>,
-        // which textContent then flattens — silently merging the two lines.
-        // Insert a real newline instead; .note-text is white-space: pre-wrap.
-        if (!SUPPORTS_PLAINTEXT_ONLY) {
-            event.preventDefault();
-            insertPlainText(element, "\n");
-        }
+        // Never leave the line break to the browser. Safari's AutoFill script
+        // cancels Enter inside an editable field and then throws on its own
+        // control rect, so the break would be swallowed; and without
+        // plaintext-only the browser answers with a <div> or <br>, which
+        // textContent then flattens — silently merging the two lines. Insert a
+        // real newline instead; .note-text is white-space: pre-wrap.
+        event.preventDefault();
+        insertNewline(element);
     });
 
     element.addEventListener("paste", (event) => {
@@ -69,6 +70,23 @@ function makeEditable(element, { multiline }) {
         const text = event.clipboardData?.getData("text/plain") ?? "";
         insertPlainText(element, multiline ? text : text.replace(/\s+/g, " "));
     });
+}
+
+// execCommand is deprecated, but it is the only insertion that stays on the
+// browser's native undo stack, so try it before rewriting the text by hand.
+// A browser that refuses it — or silently drops the newline — falls back.
+function insertNewline(element) {
+    const before = readEditableText(element);
+
+    try {
+        if (document.execCommand("insertText", false, "\n") && readEditableText(element) !== before) {
+            return;
+        }
+    } catch {
+        // Fall through to the manual insertion below.
+    }
+
+    insertPlainText(element, "\n");
 }
 
 function insertPlainText(element, value) {
@@ -830,6 +848,7 @@ function createNoteElement(note, sequence) {
     text.classList.add("note-text");
     makeEditable(text, { multiline: true });
     text.setAttribute("role", "textbox");
+    text.setAttribute("aria-multiline", "true");
     text.setAttribute("aria-label", `Note ${sequence ?? 1}`);
     text.textContent = note.text;
     text.dataset.placeholder = "Type here...";
