@@ -3,6 +3,7 @@ import { Note, noteList, registerNote, clearNotes } from "./notes.js";
 
 const STORAGE_KEY = "projects";
 const NOTES_KEY = "notes";
+const VIEW_KEY = "view";
 const SCHEMA_VERSION = 1;
 
 function saveProjects() {
@@ -95,9 +96,55 @@ function loadNotes() {
     }
 }
 
+function saveView(view) {
+    try {
+        const payload = {
+            version: SCHEMA_VERSION,
+            activeView: view.activeView,
+            activeProjectId: view.activeProjectId,
+        };
+        localStorage.setItem(VIEW_KEY, JSON.stringify(payload));
+    } catch (error) {
+        console.error("Could not save view", error);
+    }
+}
+
+function loadView() {
+    try {
+        const raw = localStorage.getItem(VIEW_KEY);
+        if (raw === null) {
+            return null;
+        }
+
+        const parsed = JSON.parse(raw);
+
+        if (parsed === null || typeof parsed !== "object") {
+            return null;
+        }
+
+        if (parsed.version !== SCHEMA_VERSION) {
+            return null;
+        }
+
+        if (parsed.activeView !== "notes" && parsed.activeView !== "project") {
+            return null;
+        }
+
+        return {
+            activeView: parsed.activeView,
+            activeProjectId: typeof parsed.activeProjectId === "string" ? parsed.activeProjectId : null,
+        };
+    } catch (error) {
+        console.error("Could not load view", error);
+        return null;
+    }
+}
+
 export {
     saveProjects,
     loadProjects,
     saveNotes,
     loadNotes,
+    saveView,
+    loadView,
 }

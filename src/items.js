@@ -1,12 +1,15 @@
 const PRIORITIES = {
     low: {
-        color: "#4caf50",
+        color: "#4a5d78",
+        code: "LOW",
     },
     medium: {
-        color: "#ff9800",
+        color: "#4b2e83",
+        code: "MED",
     },
     high: {
-        color: "#f44336",
+        color: "#d7262d",
+        code: "PRI",
     }
 }
 
