@@ -1,5 +1,5 @@
-import { Project, projectList, registerProject, clearProjects } from "./projects.js";
-import { Note, noteList, registerNote, clearNotes } from "./notes.js";
+import { Project, projectList, registerProject, clearProjects } from "./models/projects.js";
+import { Note, noteList, registerNote, clearNotes } from "./models/notes.js";
 
 const STORAGE_KEY = "projects";
 const NOTES_KEY = "notes";

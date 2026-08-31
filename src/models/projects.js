@@ -47,10 +47,15 @@ function removeProject(id) {
     projectList.delete(id);
 }
 
+function countOpenItems(project) {
+    return project.items.filter((item) => !item.completed).length;
+}
+
 export {
     Project,
     projectList,
     registerProject,
     clearProjects,
     removeProject,
+    countOpenItems,
 }
